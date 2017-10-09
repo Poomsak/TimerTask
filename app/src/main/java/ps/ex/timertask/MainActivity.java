@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private TimerTask timerTask;
     private Handler handler;
     private TextView tv_Thread;
-
+    private int i =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
+                i = i+1;
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        tv_Thread.setText("MainActivity_Thread : "+i);
                         Log.e("MainActivity", "Thread");
                     }
                 });
