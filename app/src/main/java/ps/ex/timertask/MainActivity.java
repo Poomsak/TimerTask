@@ -26,9 +26,11 @@ public class MainActivity extends AppCompatActivity {
         handler = new Handler();
 
         testTimeTask();
-        timer.schedule(timerTask,0,10000);//1000 = 1 วิ
+
     }
     private void testTimeTask(){
+
+
 
         timerTask = new TimerTask() {
             @Override
@@ -44,5 +46,16 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         };
+
+        timer.schedule(timerTask,1000*10,1000*10);//TaskTime,waitStart,CountTiome
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (timerTask !=null){
+            timerTask.cancel();
+            timerTask = null;
+        }
     }
 }
