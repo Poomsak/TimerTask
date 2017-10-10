@@ -24,13 +24,16 @@ public class MainActivity extends AppCompatActivity {
         tv_Thread = (TextView) findViewById(R.id.tv_Thread);
         timer = new Timer();
         handler = new Handler();
-
-        testTimeTask();
-
     }
-    private void testTimeTask(){
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startTimeTask();
+    }
 
+    private void startTimeTask(){
+        stopTimeTask();
 
         timerTask = new TimerTask() {
             @Override
@@ -47,15 +50,19 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        timer.schedule(timerTask,1000*10,1000*10);//TaskTime,waitStart,CountTiome
+        timer.schedule(timerTask,0,1000*10);//TaskTime,waitStart,Countdown -- 1000 = 1 วินาที
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+    private void stopTimeTask(){
         if (timerTask !=null){
             timerTask.cancel();
             timerTask = null;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopTimeTask();
     }
 }
